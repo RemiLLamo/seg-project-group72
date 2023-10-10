@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "621696444487",
+    "firebase_url": "https://seg2105-project-f4eb6-default-rtdb.firebaseio.com",
+    "project_id": "seg2105-project-f4eb6",
+    "storage_bucket": "seg2105-project-f4eb6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:621696444487:android:14f222c571986813102962",
+        "android_client_info": {
+          "package_name": "com.github.remilamoureux.seg_project_group72"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHzJu7wBimcMvPt97LIu186H1l1QMzQa4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
