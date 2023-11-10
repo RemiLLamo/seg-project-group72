@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.github.remilamoureux.seg_project_group72.data.DatabaseHandler;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,18 +38,7 @@ public class RegisterActivity extends AppCompatActivity {
         String pwd = ((EditText)findViewById(R.id.passwordField)).getText().toString();
         boolean role = ((Switch)findViewById(R.id.switch1)).isChecked();
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference roleRef = database.getReference("users/" + usr + "/role");
-        DatabaseReference emailRef = database.getReference("users/" + usr + "/email");
-        DatabaseReference passwRef = database.getReference("users/" + usr + "/password");
-
-        if (role) {
-            roleRef.setValue("Group");
-        } else {
-            roleRef.setValue("Participant");
-        }
-        emailRef.setValue(email);
-        passwRef.setValue(pwd);
+        DatabaseHandler.getHandler().attemptCreateAccount(usr, pwd, email, role);
 
         Intent intent = getIntent();
         intent.putExtra("username", usr);

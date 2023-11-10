@@ -8,10 +8,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.github.remilamoureux.seg_project_group72.data.LoggedInUser;
-import com.github.remilamoureux.seg_project_group72.data.LoginResultGrabber;
+import com.github.remilamoureux.seg_project_group72.data.Account;
+import com.github.remilamoureux.seg_project_group72.data.DatabaseHandler;
 
-public class MainActivity extends AppCompatActivity implements LoginResultGrabber {
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,10 +21,16 @@ public class MainActivity extends AppCompatActivity implements LoginResultGrabbe
         //DatabaseReference newUserRoleRef = database.getReference("users/" + username)
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        DatabaseHandler.getHandler();
+    }
+
     public void onSignin(View view) {
 
         if (!validateFields()) {
-            Toast toast = Toast.makeText(getApplicationContext(), "Invalid username or password.", Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(getApplicationContext(), "Invalid input fields.", Toast.LENGTH_SHORT);
             toast.show();
             return;
         }
@@ -52,17 +58,12 @@ public class MainActivity extends AppCompatActivity implements LoginResultGrabbe
     }
 
     private void logIn(String username, String password) {
-        LoggedInUser.attemptLogin(username, password, this);
-    }
-
-    public void result(LoggedInUser user) {
-        if (user == null) {
+        Account acc = DatabaseHandler.getHandler().attemptLogin(username, password);
+        if (acc == null) {
             Toast toast = Toast.makeText(getApplicationContext(), "Invalid username or password.", Toast.LENGTH_SHORT);
             toast.show();
         } else {
             Intent intent = new Intent(getApplicationContext(), LoggedInActivity.class);
-            intent.putExtra("username", user.getUsername());
-            intent.putExtra("password", user.getPassword());
             startActivityForResult(intent, 0);
         }
     }

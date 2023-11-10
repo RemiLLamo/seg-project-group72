@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoggedInAdmin">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Accounts" />
+
+    <ListView
+        android:id="@+id/listViewAccounts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView2" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/listViewAccounts"
+        android:text="Event Types" />
+
+    <EditText
+        android:id="@+id/editEventTName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView"
+        android:ems="10"
+        android:hint="Event Type Name"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/editEventTDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editEventTName"
+        android:ems="10"
+        android:hint="Edit Type Description"
+        android:inputType="text" />
+
+    <Button
+        android:id="@+id/eventTAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editEventTDesc"
+        android:text="Add" />
+
+    <ListView
+        android:id="@+id/listViewEventTypes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/eventTAdd">
+
+    </ListView>
+
+</RelativeLayout>
