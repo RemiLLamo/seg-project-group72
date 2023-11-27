@@ -10,4 +10,5 @@
     <string name="registerButton">Register</string>
     <string name="switch1">Participant / Group Account</string>
     <string name="switchLabel">Participant / Group Account</string>
+    <string name="profilecompbutton">Complete Profile</string>
 </resources>

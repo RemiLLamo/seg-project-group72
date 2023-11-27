@@ -8,9 +8,14 @@ import java.util.List;
 public class Club extends Account {
 
     private List<Event> events;
-    public Club(String username, String password, String email, List<Event> events) {
+    private String name;
+    private String phoneNumber;
+
+    public Club(String username, String password, String email, List<Event> events, String name, String phoneNumber) {
         super(username, password, email);
         this.events = events;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
     }
 
     public Event getEvent(int index) {
@@ -27,5 +32,14 @@ public class Club extends Account {
 
     public List<Event> getEvents() {
         return events;
+    }
+
+    public void setProfile(String name, String phoneNumber) {
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getName() {
+        return name;
     }
 }

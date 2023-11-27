@@ -78,7 +78,7 @@ public class DatabaseHandler {
                         newA = new Admin(postSnapshot.getKey(), postSnapshot.child("password").getValue(String.class), postSnapshot.child("email").getValue(String.class));
                     } else if (role.equals("Group")) {
                         newA = new Club(postSnapshot.getKey(), postSnapshot.child("password").getValue(String.class), postSnapshot.child("email").getValue(String.class),
-                                getEvents(postSnapshot.child("events")));
+                                getEvents(postSnapshot.child("events")), postSnapshot.child("name").getValue(String.class), postSnapshot.child("phone").getValue(String.class));
                     } else {
                         newA = new Participant(postSnapshot.getKey(), postSnapshot.child("password").getValue(String.class), postSnapshot.child("email").getValue(String.class));
                     }
@@ -163,6 +163,19 @@ public class DatabaseHandler {
         passwRef.setValue(pwd);
     }
 
+    public void updateClub(String name, String phone) {
+        Account a = getAccount();
+        if (!(a instanceof Club)) return;
+        Club b = (Club) a;
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference nameRef = database.getReference("users/" + b.getUsername() + "/name");
+        DatabaseReference phoneRef = database.getReference("users/" + b.getUsername() + "/phone");
+
+        b.setProfile(name, phone);
+        nameRef.setValue(name);
+        phoneRef.setValue(phone);
+    }
+
     public void setUpdater(LoggedInAdmin th) {
         updater = th;
         updater.update(accounts);
@@ -240,7 +253,7 @@ public class DatabaseHandler {
                         newA = new Admin(postSnapshot.getKey(), postSnapshot.child("password").getValue(String.class), postSnapshot.child("email").getValue(String.class));
                     } else if (role.equals("Group")) {
                         newA = new Club(postSnapshot.getKey(), postSnapshot.child("password").getValue(String.class), postSnapshot.child("email").getValue(String.class),
-                                getEvents(postSnapshot.child("events")));
+                                getEvents(postSnapshot.child("events")), postSnapshot.child("name").getValue(String.class), postSnapshot.child("phone").getValue(String.class));
                     } else {
                         newA = new Participant(postSnapshot.getKey(), postSnapshot.child("password").getValue(String.class), postSnapshot.child("email").getValue(String.class));
                     }

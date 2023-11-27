@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterActivity">
+    tools:context=".ClubProfileActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,17 +15,11 @@
             android:layout_width="match_parent"
             android:layout_height="200dp" />
 
-        <Switch
-            android:id="@+id/switch1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/switchLabel" />
-
         <TextView
             android:id="@+id/usernameLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/usernameLabel" />
+            android:text="Name of contact:" />
 
         <EditText
             android:id="@+id/usernameField"
@@ -35,23 +29,10 @@
             android:inputType="text" />
 
         <TextView
-            android:id="@+id/passwordLabel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/passwordLabel" />
-
-        <EditText
-            android:id="@+id/passwordField"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPassword" />
-
-        <TextView
             android:id="@+id/emailLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/emailLabel" />
+            android:text="Phone Number:" />
 
         <EditText
             android:id="@+id/phoneField"
@@ -71,7 +52,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="onRegister"
-                android:text="@string/registerButton" />
+                android:text="@string/profilecompbutton" />
 
             <Space
                 android:layout_width="match_parent"

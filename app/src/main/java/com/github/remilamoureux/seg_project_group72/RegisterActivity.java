@@ -1,6 +1,5 @@
 package com.github.remilamoureux.seg_project_group72;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -11,11 +10,6 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import com.github.remilamoureux.seg_project_group72.data.DatabaseHandler;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -33,7 +27,7 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
-        String email = ((EditText)findViewById(R.id.emailField)).getText().toString();
+        String email = ((EditText)findViewById(R.id.phoneField)).getText().toString();
         String usr = ((EditText)findViewById(R.id.usernameField)).getText().toString();
         String pwd = ((EditText)findViewById(R.id.passwordField)).getText().toString();
         boolean role = ((Switch)findViewById(R.id.switch1)).isChecked();
@@ -50,7 +44,7 @@ public class RegisterActivity extends AppCompatActivity {
     private boolean validateFields() {
         EditText f1 = findViewById(R.id.usernameField);
         EditText f2 = findViewById(R.id.passwordField);
-        EditText f3 = findViewById(R.id.emailField);
+        EditText f3 = findViewById(R.id.phoneField);
 
         if (f1.length() == 0) {
             f1.setError("Must have username");

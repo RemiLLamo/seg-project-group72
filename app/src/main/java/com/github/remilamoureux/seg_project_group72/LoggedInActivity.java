@@ -28,8 +28,25 @@ public class LoggedInActivity extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(), LoggedInAdmin.class);
             startActivityForResult(intent, 0);
         } else if (user instanceof Club) {
+            Intent intent;
+            if (((Club) user).getName() == null) {
+                intent = new Intent(getApplicationContext(), ClubProfileActivity.class);
+            } else {
+                intent = new Intent(getApplicationContext(), LoggedInClub.class);
+            }
+            startActivityForResult(intent, 0);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_CANCELED) return;
+
+        if (DatabaseHandler.getHandler().getAccount() instanceof Club) {
             Intent intent = new Intent(getApplicationContext(), LoggedInClub.class);
             startActivityForResult(intent, 0);
+
         }
     }
 
