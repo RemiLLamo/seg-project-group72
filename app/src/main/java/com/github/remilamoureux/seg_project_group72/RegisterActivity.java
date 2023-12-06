@@ -54,6 +54,10 @@ public class RegisterActivity extends AppCompatActivity {
             f2.setError("Must have password");
             return false;
         }
+        if (f3.length() == 0) {
+            f3.setError("Must have email");
+            return false;
+        }
         if (!f1.getText().toString().matches("[A-Za-z0-9]+")) {
             f1.setError("Username must be alphanumeric");
             return false;
@@ -63,7 +67,7 @@ public class RegisterActivity extends AppCompatActivity {
             return false;
         }
 
-        if (f3.getText().toString().matches("\t^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$")) {
+        if (!f3.getText().toString().matches("([a-zA-Z0-9_-]+)@([a-zA-Z0-9_-]+).([a-zA-Z]{2,5})$")) {
             f3.setError("Not a valid email address.");
             return false;
         }
