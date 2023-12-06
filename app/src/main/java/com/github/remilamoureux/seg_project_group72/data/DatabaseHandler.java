@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.github.remilamoureux.seg_project_group72.LoggedInAdmin;
 import com.github.remilamoureux.seg_project_group72.LoggedInClub;
+import com.github.remilamoureux.seg_project_group72.LoggedInParticipant;
 import com.github.remilamoureux.seg_project_group72.MainActivity;
 import com.github.remilamoureux.seg_project_group72.data.accounttypes.Admin;
 import com.github.remilamoureux.seg_project_group72.data.accounttypes.Club;
@@ -24,6 +25,7 @@ public class DatabaseHandler {
 
     private LoggedInAdmin updater;
     private LoggedInClub updater2;
+    private LoggedInParticipant updater3;
 
     private List<Account> accounts;
     private List<EventType> eventTypes;
@@ -89,6 +91,7 @@ public class DatabaseHandler {
                 if (loggedInAcc != null) relog();
                 if (updater != null) updater.update(accounts);
                 if (updater2 != null) updater2.update();
+                if (updater3 != null) updater3.update(accounts);
             }
 
             @Override
@@ -108,7 +111,11 @@ public class DatabaseHandler {
     private List<Event> getEvents(DataSnapshot shot) {
         List<Event> eA = new ArrayList<>();
         for (DataSnapshot cS : shot.getChildren()) {
-            eA.add(new Event(cS.child("name").getValue(String.class), cS.child("desc").getValue(String.class), getType(cS.child("typeID").getValue(String.class)), cS.getKey()));
+            List<Ejoin> parts = new ArrayList<>();
+            for (DataSnapshot cS2 : cS.child("participants").getChildren()) {
+                parts.add(new Ejoin(cS2.getKey(), cS2.child("info").getValue(String.class)));
+            }
+            eA.add(new Event(cS.child("name").getValue(String.class), cS.child("desc").getValue(String.class), getType(cS.child("typeID").getValue(String.class)), cS.getKey(), parts));
         }
         return eA;
     }
@@ -188,6 +195,13 @@ public class DatabaseHandler {
         updater2.update2(eventTypes);
     }
 
+    public void setUpdater3(LoggedInParticipant th) {
+        updater3 = th;
+        recache();
+        updater3.update(accounts);
+        updater3.update2(eventTypes);
+    }
+
     public void addEventType(String name, String desc) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference eTypes = database.getReference("event_types");
@@ -227,6 +241,35 @@ public class DatabaseHandler {
         ref.child("desc").setValue(desc);
     }
 
+    private Club getC(String id) {
+        for (Account acc : accounts) {
+            if (acc instanceof Club) {
+                Club c = (Club) acc;
+                for (Event e : c.getEvents()) {
+                    if (e.getID().equals(id)) return c;
+                }
+            }
+        }
+        return null;
+    }
+
+    public void updateEventPart(String id, String info) {
+        if (!(loggedInAcc instanceof Participant)) return;
+
+        Club club = getC(id);
+        if (club == null) return;
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("users").child(club.getUsername()).child("events").child(id).child("participants").child(loggedInAcc.getUsername());
+        ref.child("info").setValue(info);
+
+    }
+
+    public LoggedInParticipant getUpdater3() {
+        if (!(loggedInAcc instanceof Participant)) return null;
+        return updater3;
+    }
+
     public void deleteEvent(String id) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("users").child(loggedInAcc.getUsername()).child("events").child(id);
@@ -264,6 +307,7 @@ public class DatabaseHandler {
                 if (loggedInAcc != null) relog();
                 if (updater != null) updater.update(accounts);
                 if (updater2 != null) updater2.update();
+                if (updater3 != null) updater3.update(accounts);
             }
 
             @Override
@@ -271,5 +315,14 @@ public class DatabaseHandler {
 
             }
         });
+    }
+
+    public void deleteParticipant(Event event, Ejoin part) {
+        if (!(loggedInAcc instanceof Club)) return;
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference accountRef = database.getReference("users").child(loggedInAcc.getUsername()).child("events")
+                .child(event.getID()).child("participants").child(part.getItemName());
+        accountRef.removeValue();
+        event.removePart(part);
     }
 }

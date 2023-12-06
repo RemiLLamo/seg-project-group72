@@ -4,27 +4,17 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/editEventName"
+    <TextView
+        android:id="@+id/textView3"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter name" />
-		
-	<TextView
-        android:id="@+id/eventType"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textAlignment="center"
-        android:layout_below="@id/editEventName"
-       />
+        android:layout_height="wrap_content" />
 
     <EditText
-        android:id="@+id/editEventDescription"
+        android:id="@+id/editTypeDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/eventType"
-        android:hint="Enter description" />
+        android:layout_below="@id/editTypeName"
+        android:hint="Enter information" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,23 +26,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Update" />
+            android:text="Cancel" />
 
         <Button
             android:id="@+id/buttonDeleteItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Delete" />
+            android:text="Join" />
 
     </LinearLayout>
-
-    <ListView
-        android:id="@+id/pList"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/ongoing_events"
-        android:layout_weight="1" />
 
 
 </LinearLayout>

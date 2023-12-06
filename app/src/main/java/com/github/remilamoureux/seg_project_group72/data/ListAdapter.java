@@ -26,8 +26,8 @@ public class ListAdapter<E extends Listable> extends ArrayAdapter<E> {
         LayoutInflater inflater = context.getLayoutInflater();
         View listViewItem = inflater.inflate(R.layout.layout_item_list, null, true);
 
-        TextView textViewName = (TextView) listViewItem.findViewById(R.id.textViewName);
-        TextView textViewPrice = (TextView) listViewItem.findViewById(R.id.textViewPrice);
+        TextView textViewName = listViewItem.findViewById(R.id.textViewName);
+        TextView textViewPrice = listViewItem.findViewById(R.id.textViewPrice);
 
         Listable product = things.get(position);
         textViewName.setText(product.getItemName());

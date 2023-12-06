@@ -78,7 +78,7 @@ public class LoggedInAdmin extends AppCompatActivity {
 
     public void update2(List<EventType> eventTypes) {
         this.eventTypes = eventTypes;
-        ListAdapter<EventType> listAdapter2 = new ListAdapter<>(this, eventTypes);
+        ListAdapter<EventType> listAdapter2 = new ListAdapter<>(this, this.eventTypes);
         listET.setAdapter(listAdapter2);
     }
 

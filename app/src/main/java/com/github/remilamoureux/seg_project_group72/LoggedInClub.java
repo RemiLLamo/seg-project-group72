@@ -18,11 +18,14 @@ import android.widget.Toast;
 
 import com.github.remilamoureux.seg_project_group72.data.Account;
 import com.github.remilamoureux.seg_project_group72.data.DatabaseHandler;
+import com.github.remilamoureux.seg_project_group72.data.Ejoin;
 import com.github.remilamoureux.seg_project_group72.data.Event;
 import com.github.remilamoureux.seg_project_group72.data.EventType;
 import com.github.remilamoureux.seg_project_group72.data.ListAdapter;
 import com.github.remilamoureux.seg_project_group72.data.accounttypes.Club;
+import com.github.remilamoureux.seg_project_group72.data.accounttypes.Participant;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LoggedInClub extends AppCompatActivity {
@@ -37,7 +40,6 @@ public class LoggedInClub extends AppCompatActivity {
     List<Event> events;
     ListView listEvents;
     AutoCompleteTextView typeMenu;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +52,8 @@ public class LoggedInClub extends AppCompatActivity {
         listEvents = findViewById(R.id.eventList);
         typeMenu = findViewById(R.id.event_type);
 
+        eventTypes = new ArrayList<>();
+
         ArrayAdapter<EventType> test = new ListAdapter<>(this, eventTypes);
         typeMenu.setAdapter(test);
 
@@ -61,7 +65,7 @@ public class LoggedInClub extends AppCompatActivity {
 
         listEvents.setOnItemClickListener((parent, view, position, id) -> {
             Event event = events.get(position);
-            openEventUpdateDialog(event.getID(), event.getTypeName());
+            openEventUpdateDialog(event);
         });
         addButton.setOnClickListener(view -> addEvent());
 
@@ -82,7 +86,10 @@ public class LoggedInClub extends AppCompatActivity {
         Toast.makeText(this, "Event Type added", Toast.LENGTH_LONG).show();
     }
 
-    private void openEventUpdateDialog(String id, String typeName) {
+    private void openEventUpdateDialog(Event event) {
+        String id = event.getID();
+        String typeName = event.getTypeName();
+
         AlertDialog.Builder updateDialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater layoutInflater = getLayoutInflater();
         View updateDialogView = layoutInflater.inflate(R.layout.update_dialog_event, null);
@@ -94,6 +101,15 @@ public class LoggedInClub extends AppCompatActivity {
         EditText desc = updateDialogView.findViewById(R.id.editEventDescription);
         Button updatebutton = updateDialogView.findViewById(R.id.buttonUpdateItem);
         Button deletebutton = updateDialogView.findViewById(R.id.buttonDeleteItem);
+        ListView eList = updateDialogView.findViewById(R.id.pList);
+
+        ListAdapter<Ejoin> listAdapter1 = new ListAdapter<>(this, event.getParticipants());
+        eList.setAdapter(listAdapter1);
+        eList.setOnItemClickListener((parent, view, position, id2) -> {
+            Ejoin part = event.getParticipants().get(position);
+            DatabaseHandler.getHandler().deleteParticipant(event, part);
+            eList.setAdapter(new ListAdapter<>(this, event.getParticipants()));
+        });
 
         type.setText(typeName);
 

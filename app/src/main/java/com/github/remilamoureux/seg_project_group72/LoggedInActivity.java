@@ -35,6 +35,9 @@ public class LoggedInActivity extends AppCompatActivity {
                 intent = new Intent(getApplicationContext(), LoggedInClub.class);
             }
             startActivityForResult(intent, 0);
+        } else {
+            Intent intent = new Intent(getApplicationContext(), LoggedInParticipant.class);
+            startActivityForResult(intent, 0);
         }
     }
 
