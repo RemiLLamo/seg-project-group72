@@ -109,6 +109,7 @@ public class LoggedInParticipant extends AppCompatActivity {
             }
         }
 
+        events = goodEvents;
         ListAdapter<Event> listAdapter1 = new ListAdapter<>(this, goodEvents);
         listEvents.setAdapter(listAdapter1);
     }
