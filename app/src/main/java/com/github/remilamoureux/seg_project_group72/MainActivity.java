@@ -84,10 +84,6 @@ public class MainActivity extends AppCompatActivity {
             f1.setError("Username must be alphanumeric");
             return false;
         }
-        if (!f2.getText().toString().matches("[A-Za-z0-9]+")) {
-            f2.setError("Password must be alphanumeric");
-            return false;
-        }
 
         f1.setError(null);
         f2.setError(null);
